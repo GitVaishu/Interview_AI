@@ -4,11 +4,6 @@ import './index.css'; // Standard CSS import
 import { ClerkProvider } from '@clerk/clerk-react';
 import App from './App';
 
-// === IMPORTANT ===
-// 1. Ensure you have created the file: frontend/.env
-// 2. The .env file MUST contain: REACT_APP_CLERK_PUBLISHABLE_KEY="pk_test_..."
-// =================
-
 // Retrieve the Publishable Key from the environment variables
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 console.log("eefref",PUBLISHABLE_KEY)
