@@ -1,15 +1,22 @@
-// frontend/src/index.js (or index.tsx)
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import './index.css'; // Standard CSS import
 import { ClerkProvider } from '@clerk/clerk-react';
+import App from './App';
 
-// Get the key from the environment variable (ensure it's defined in .env)
+// === IMPORTANT ===
+// 1. Ensure you have created the file: frontend/.env
+// 2. The .env file MUST contain: REACT_APP_CLERK_PUBLISHABLE_KEY="pk_test_..."
+// =================
+
+// Retrieve the Publishable Key from the environment variables
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+console.log("eefref",PUBLISHABLE_KEY)
 
 if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key");
+  // If the key is missing, log a critical error and stop the application
+  console.error("FATAL ERROR: Clerk Publishable Key is missing! Check frontend/.env and ensure you restarted npm start.");
+  throw new Error("REACT_APP_CLERK_PUBLISHABLE_KEY not found. Please check your .env file.");
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
