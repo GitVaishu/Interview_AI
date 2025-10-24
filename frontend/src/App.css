@@ -990,33 +990,14 @@
   padding-top: 10px;
 }
 
-.skip-btn {
-  flex: 1;
-  padding: 14px;
-  background: white;
-  border: 2px solid #e5e7eb;
-  color: #6b7280;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.skip-btn:hover {
-  border-color: #0ea5e9;
-  color: #0ea5e9;
-  background: #f0f9ff;
-}
-
 .submit-answer-btn {
-  flex: 2;
-  padding: 14px;
+  width: 100%;
+  padding: 16px;
   background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
