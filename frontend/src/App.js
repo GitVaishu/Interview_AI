@@ -357,16 +357,6 @@ const InterviewSession = ({ user, onNavigate, config }) => {
     }
   };
 
-  const handleSkip = () => {
-    if (currentQuestion < mockQuestion.total) {
-      setCurrentQuestion((prev) => prev + 1);
-      setAnswer("");
-    } else {
-      alert("Interview completed!");
-      onNavigate("progress");
-    }
-  };
-
   return (
     <div className="interview-session-container">
       {/* Header with timer and progress */}
@@ -451,9 +441,6 @@ const InterviewSession = ({ user, onNavigate, config }) => {
 
           {/* Action buttons */}
           <div className="interview-actions">
-            <button className="skip-btn" onClick={handleSkip}>
-              Skip Question
-            </button>
             <button
               className="submit-answer-btn"
               onClick={handleSubmitAnswer}
