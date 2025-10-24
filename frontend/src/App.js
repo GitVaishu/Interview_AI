@@ -227,12 +227,12 @@ const InterviewSetup = ({ user, onNavigate }) => {
   };
 
   const startInterview = () => {
-    alert(
-      `Starting ${level} interview for ${duration} minutes focusing on: ${
-        topics.join(", ") || "General Topics"
-      }`
-    );
-    // Backend integration will go here
+    // Navigate to interview session
+    onNavigate("interview-session", {
+      level,
+      duration,
+      topics: topics.length > 0 ? topics : allTopics,
+    });
   };
 
   return (
@@ -293,6 +293,163 @@ const InterviewSetup = ({ user, onNavigate }) => {
         <button className="start-interview-btn" onClick={startInterview}>
           🎤 Start Interview
         </button>
+      </div>
+    </div>
+  );
+};
+
+// --- Interview Session Component ---
+const InterviewSession = ({ user, onNavigate, config }) => {
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [answer, setAnswer] = useState("");
+  const [timeLeft, setTimeLeft] = useState(config?.duration * 60 || 1800); // seconds
+
+  // Mock question for now
+  const mockQuestion = {
+    number: currentQuestion,
+    total: 10,
+    text: "Explain the concept of closures in JavaScript with an example. How would you use closures in a real-world application?",
+    category: "JavaScript",
+  };
+
+  // Timer effect
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          // Auto-end interview when timer reaches 0
+          alert(
+            "Time's up! Your interview has ended. Redirecting to results..."
+          );
+          onNavigate("progress");
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [onNavigate]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
+  const handleSubmitAnswer = () => {
+    if (!answer.trim()) {
+      alert("Please provide an answer before submitting!");
+      return;
+    }
+
+    // TODO: Send answer to backend for evaluation
+    console.log("Submitted answer:", answer);
+
+    // Move to next question or finish
+    if (currentQuestion < mockQuestion.total) {
+      setCurrentQuestion((prev) => prev + 1);
+      setAnswer("");
+    } else {
+      alert("Interview completed! Redirecting to results...");
+      onNavigate("progress");
+    }
+  };
+
+  return (
+    <div className="interview-session-container">
+      {/* Header with timer and progress */}
+      <div className="interview-header">
+        <div className="interview-header-left">
+          <h2>🎤 AI Mock Interview</h2>
+          <span className="interview-level">
+            {config?.level || "Medium"} Level
+          </span>
+        </div>
+        <div className="interview-header-right">
+          <div className="timer">
+            <span className="timer-icon">⏱️</span>
+            <span className="timer-text">{formatTime(timeLeft)}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main content area */}
+      <div className="interview-main">
+        {/* Left side: Video preview */}
+        <div className="interview-video-section">
+          <div className="video-preview">
+            <div className="video-placeholder">
+              <span className="camera-icon">📹</span>
+              <p>Camera Preview</p>
+              <small>Proctoring will be enabled here</small>
+            </div>
+          </div>
+
+          <div className="interview-stats">
+            <div className="stat-item">
+              <span className="stat-label">Question</span>
+              <span className="stat-value">
+                {currentQuestion} / {mockQuestion.total}
+              </span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Category</span>
+              <span className="stat-value">{mockQuestion.category}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right side: Question and answer */}
+        <div className="interview-qa-section">
+          {/* Progress bar */}
+          <div className="question-progress">
+            <div
+              className="question-progress-fill"
+              style={{
+                width: `${(currentQuestion / mockQuestion.total) * 100}%`,
+              }}
+            ></div>
+          </div>
+
+          {/* Question box */}
+          <div className="question-box">
+            <div className="question-header">
+              <span className="question-number">
+                Question {mockQuestion.number}
+              </span>
+              <span className="question-category">{mockQuestion.category}</span>
+            </div>
+            <div className="question-text">{mockQuestion.text}</div>
+          </div>
+
+          {/* Answer box */}
+          <div className="answer-section">
+            <label className="answer-label">Your Answer:</label>
+            <textarea
+              className="answer-textarea"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              placeholder="Type your answer here... Be clear and concise."
+              rows={12}
+            />
+            <div className="answer-meta">
+              <span className="char-count">{answer.length} characters</span>
+            </div>
+          </div>
+
+          {/* Action buttons */}
+          <div className="interview-actions">
+            <button
+              className="submit-answer-btn"
+              onClick={handleSubmitAnswer}
+              disabled={!answer.trim()}
+            >
+              Submit & Next →
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -417,6 +574,14 @@ function App() {
   const { user, isLoaded } = useUser();
   const { signOut } = useClerk();
   const [currentPage, setCurrentPage] = useState("home");
+  const [interviewConfig, setInterviewConfig] = useState(null);
+
+  const handleNavigation = (page, config = null) => {
+    setCurrentPage(page);
+    if (config) {
+      setInterviewConfig(config);
+    }
+  };
 
   if (!isLoaded) {
     return (
@@ -430,15 +595,23 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case "home":
-        return <Dashboard user={user} onNavigate={setCurrentPage} />;
+        return <Dashboard user={user} onNavigate={handleNavigation} />;
       case "resume":
-        return <ResumeUpload user={user} onNavigate={setCurrentPage} />;
+        return <ResumeUpload user={user} onNavigate={handleNavigation} />;
       case "interview":
-        return <InterviewSetup user={user} onNavigate={setCurrentPage} />;
+        return <InterviewSetup user={user} onNavigate={handleNavigation} />;
+      case "interview-session":
+        return (
+          <InterviewSession
+            user={user}
+            onNavigate={handleNavigation}
+            config={interviewConfig}
+          />
+        );
       case "progress":
-        return <ProgressTracker user={user} onNavigate={setCurrentPage} />;
+        return <ProgressTracker user={user} onNavigate={handleNavigation} />;
       default:
-        return <Dashboard user={user} onNavigate={setCurrentPage} />;
+        return <Dashboard user={user} onNavigate={handleNavigation} />;
     }
   };
 
