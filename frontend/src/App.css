@@ -380,6 +380,108 @@
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
 }
 
+/* --- NEW: Resume Selection Hub Styles --- */
+.resume-action-hub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+.welcome-heading {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+}
+
+.selection-desc {
+    color: #6b7280;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.action-card {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+    cursor: pointer;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
+}
+
+.icon-section {
+    margin-right: 25px;
+    font-size: 3rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: #0c4a6e;
+    margin-bottom: 5px;
+}
+
+.card-description {
+    color: #6b7280;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.divider-text {
+    font-weight: 700;
+    color: #9ca3af;
+    font-size: 1.1rem;
+}
+
+/* Specific button style for the cards */
+.large-btn {
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.large-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Ensure the old upload form now uses the new component name */
+/* (Rename .upload-section to .ats-scan-upload-section if you want cleaner naming,
+   but we'll just keep the old name for simplicity here) */
+   
 /* Interview Setup Styles */
 .interview-setup {
   background: white;

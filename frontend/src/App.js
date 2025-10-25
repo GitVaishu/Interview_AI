@@ -105,6 +105,70 @@ const Dashboard = ({ user, onNavigate }) => {
   );
 };
 
+// --- New Component: Resume Action Hub (The Choice Screen) ---
+const ResumeActionHub = ({ onNavigate }) => {
+    return (
+        <div className="page-container">
+            <button className="back-btn" onClick={() => onNavigate("home")}>
+                ← Back to Dashboard
+            </button>
+
+            <div className="resume-action-hub">
+                <h2 className="welcome-heading">Resume Uploaded! What's Next?</h2>
+                <p className="selection-desc">Your resume has been processed. Choose how you'd like to use the analysis.</p>
+
+                {/* === Option 1: View ATS Report (New) === */}
+                <div className="action-card primary-action" onClick={() => console.log("ATS Scan functionality coming soon.")}>
+                    <div className="icon-section">
+                        <span role="img" aria-label="scanner">🔍</span>
+                    </div>
+                    <div className="text-section">
+                        <h3 className="card-title">View ATS Scan Report</h3>
+                        <p className="card-description">
+                            See your ATS matching score, keyword gaps, and receive suggestions for the specified job role.
+                        </p>
+                        <button 
+                            className="btn btn-primary large-btn"
+                            //onClick={(e) => {e.stopPropagation(); onNavigate("ats-report");}}>
+                            // CHANGE: Remove onNavigate call and use a simple console log/alert
+                            onClick={(e) => {
+                                e.stopPropagation(); 
+                                alert("ATS Scanning functionality is under development! Stay tuned.");
+                                // You can remove the alert and just use console.log if you prefer.
+                            }}>
+                            Start ATS Scan
+                        </button>
+                    </div>
+                </div>
+                
+                {/* Separator */}
+                <div className="divider-text">OR</div>
+
+                {/* === Option 2: Start Interview === */}
+                <div className="action-card secondary-action" onClick={() => onNavigate("interview")}>
+                    <div className="icon-section">
+                        <span role="img" aria-label="interview">🎯</span>
+                    </div>
+                    <div className="text-section">
+                        <h3 className="card-title">Begin Mock Interview</h3>
+                        <p className="card-description">
+                            Use your uploaded resume and job description to generate highly personalized questions.
+                        </p>
+                        <button 
+                            className="btn btn-secondary large-btn"
+                            onClick={(e) => {e.stopPropagation(); onNavigate("interview");}}>
+                            Begin Interview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+// --- End New Component ---
+
+
+
 // --- Resume Upload Component ---
 const ResumeUpload = ({ user, onNavigate }) => {
   const [file, setFile] = useState(null);
@@ -137,7 +201,7 @@ const ResumeUpload = ({ user, onNavigate }) => {
       const data = await response.json();
       console.log("Upload successful:", data);
       setUploadSuccess(true);
-      setTimeout(() => onNavigate("interview"), 2000);
+      setTimeout(() => onNavigate("action-hub"), 2000);
     } catch (error) {
       console.error("Upload failed:", error);
       alert("Upload failed. Please try again.");
@@ -598,6 +662,14 @@ function App() {
         return <Dashboard user={user} onNavigate={handleNavigation} />;
       case "resume":
         return <ResumeUpload user={user} onNavigate={handleNavigation} />;
+      case "action-hub": // <-- NEW: The choice screen after upload
+        return <ResumeActionHub onNavigate={handleNavigation} />; 
+        
+      case "ats-report": // <-- NEW: Placeholder for the ATS detailed report/results
+        // For now, let's redirect this to progress until you build the ATS report page
+        return (
+             <ProgressTracker user={user} onNavigate={handleNavigation} />
+        );
       case "interview":
         return <InterviewSetup user={user} onNavigate={handleNavigation} />;
       case "interview-session":
