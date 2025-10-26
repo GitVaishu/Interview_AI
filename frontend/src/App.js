@@ -133,8 +133,7 @@ const ResumeActionHub = ({ onNavigate }) => {
                             // CHANGE: Remove onNavigate call and use a simple console log/alert
                             onClick={(e) => {
                                 e.stopPropagation(); 
-                                alert("ATS Scanning functionality is under development! Stay tuned.");
-                                // You can remove the alert and just use console.log if you prefer.
+                                onNavigate("ats-report");
                             }}>
                             Start ATS Scan
                         </button>
@@ -357,6 +356,7 @@ const InterviewSetup = ({ user, onNavigate }) => {
         <button className="start-interview-btn" onClick={startInterview}>
           🎤 Start Interview
         </button>
+
       </div>
     </div>
   );
@@ -664,12 +664,8 @@ function App() {
         return <ResumeUpload user={user} onNavigate={handleNavigation} />;
       case "action-hub": // <-- NEW: The choice screen after upload
         return <ResumeActionHub onNavigate={handleNavigation} />; 
-        
-      case "ats-report": // <-- NEW: Placeholder for the ATS detailed report/results
-        // For now, let's redirect this to progress until you build the ATS report page
-        return (
-             <ProgressTracker user={user} onNavigate={handleNavigation} />
-        );
+      case "ats-report": // <-- NEW: Route for the ATS detailed report/results
+        return <ATSReport user={user} onNavigate={handleNavigation} />;
       case "interview":
         return <InterviewSetup user={user} onNavigate={handleNavigation} />;
       case "interview-session":
@@ -747,5 +743,152 @@ function App() {
     </div>
   );
 }
+
+
+
+// --- New Component: ATSReport ---
+const ATSReport = ({ user, onNavigate }) => {
+    const [reportData, setReportData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    React.useEffect(() => {
+        // Define the fetch function INSIDE useEffect
+        const fetchATSReport = async () => {
+            setLoading(true);
+            setError(null);
+            
+            try {
+                // Call the new FastAPI endpoint
+                const response = await fetch(`http://localhost:8000/ats-report/${user.id}`);
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || "Failed to fetch ATS report.");
+                }
+                
+                const data = await response.json();
+                
+                if (data.ats_report && data.ats_report.match_score !== undefined) {
+                    setReportData({
+                        match_score: data.ats_report.match_score,
+                        missing_keywords: data.ats_report.missing_keywords || [],
+                        suggestions: data.ats_report.suggestions || [],
+                        job_role: data.job_role || "Not specified",
+                        job_description_preview: data.job_role ? data.job_role.substring(0, 70) + '...' : "General analysis"
+                    });
+                } else {
+                    setError("Report generated successfully, but the full analysis was skipped because no Job Description was provided during upload.");
+                }
+
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        // Call the inner function
+        fetchATSReport();
+        
+    }, [user.id]); // Now only 'user.id' is the dependency. The function is scoped.
+
+    // --- Loading and Error States ---
+    if (loading) {
+        return (
+            <div className="loading-screen page-container">
+                <div className="spinner"></div>
+                <p>Analyzing resume against job description...</p>
+            </div>
+        );
+    }
+    
+    if (error) {
+         return (
+             <div className="page-container error-state">
+                 <button className="back-btn" onClick={() => onNavigate("action-hub")}>← Back to Selection</button>
+                 <h2 style={{color: 'red'}}>❌ Report Error</h2>
+                 <p>{error}</p>
+                 <p>Please check your backend server and ensure a Job Description was included with the resume upload.</p>
+             </div>
+         );
+    }
+
+    // Now, replace `report` with `reportData` in the rendering logic
+    return (
+        <div className="page-container">
+            <button className="back-btn" onClick={() => onNavigate("action-hub")}>
+                ← Back to Selection
+            </button>
+            <div className="ats-report-section">
+                <h2 className="welcome-heading">🔍 ATS Scan Report</h2>
+                <p className="selection-desc">
+                    Analysis for job: <strong className="job-desc-preview">{reportData.job_description_preview}</strong>
+                </p>
+
+                {/* --- Match Score Section --- */}
+                <div className="score-container">
+                    <h3 className="score-title">ATS Match Score</h3>
+                    <div className={`match-score-circle score-${Math.floor(reportData.match_score / 10) * 10}`}>
+                        {reportData.match_score}%
+                    </div>
+                    
+                    {/* --- Start Score Advice Logic (Replacing the placeholder) --- */}
+                    <p className="score-advice">
+                        {reportData.match_score > 85 ? (
+                            // Score 86-100: Excellent
+                            "🥳 Outstanding Match! Your resume is highly aligned with this job description. Focus on interview prep!"
+                        ) : reportData.match_score > 70 ? (
+                            // Score 71-85: Good
+                            "👍 Good Match. You have the core keywords covered. Review the suggestions and keyword gaps for minor final adjustments."
+                        ) : reportData.match_score > 50 ? (
+                            // Score 51-70: Moderate
+                            "⚠️ Moderate Match. You meet basic requirements, but critical keywords are missing. Prioritize the suggestions to significantly improve your chances."
+                        ) : (
+                            // Score 0-50: Needs work
+                            "🚨 Low Match. Your resume needs major revisions. Tailor your experience and skills to the job description immediately to pass the ATS filter."
+                        )}
+                    </p>
+                    {/* --- End Score Advice Logic --- */}
+                </div>
+
+                <div className="report-details-container"> 
+                    {/* --- Keyword Gaps --- */}
+                    <div className="card report-card missing-keywords">
+                        <h3>❌ Critical Missing Keywords</h3>
+                        <p>These terms from the Job Description were not found in your resume:</p>
+                        <ul className="keywords-list"> {/* Added class for specific styling */}
+                            {reportData.missing_keywords.map((word, index) => (
+                                // CHANGED: Added role="img" to the emoji span for alignment control
+                                <li key={index}>
+                                    <span className="warning-emoji" role="img" aria-label="alert">⚠️</span>
+                                    {word}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* --- Suggestions --- */}
+                    <div className="card report-card suggestions">
+                        <h3>📝 Improvement Suggestions</h3>
+                        <p>Actionable advice to increase your match score:</p>
+                        <ol className="suggestions-list"> {/* Changed from ul to ol for numbering */}
+                            {reportData.suggestions.map((s, index) => (
+                                <li key={index}>{s}</li>
+                            ))}
+                        </ol>
+                    </div>
+                </div>
+
+                <button 
+                    className="start-interview-btn-report" 
+                    onClick={() => onNavigate("interview")}>
+                    🚀 Start Mock Interview with this Job Role
+                </button>
+            </div>
+        </div>
+    );
+};
 
 export default App;

@@ -241,6 +241,7 @@
 
 /* Page Container */
 .page-container {
+  color: #E0E6F7;
   max-width: 900px;
   margin: 0 auto;
 }
@@ -1180,4 +1181,145 @@
   .answer-textarea {
     min-height: 180px;
   }
+}
+
+/* --- Section Headings --- */
+.ats-report-section h2, .ats-report-section h3 {
+    color: #79D2FF; /* Vibrant Blue for clarity */
+    margin-top: 20px;
+}
+
+.ats-report-section h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+/* --- Report Description and Advice Text --- */
+.selection-desc {
+    font-size: 1.1em;
+    color: #A9B7C7; /* Slightly muted for context */
+    margin-bottom: 30px;
+}
+
+.score-advice {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-top: 15px;
+    padding: 10px 0;
+    /* Use color classes based on your App.js logic for dynamic advice color */
+}
+
+/* --- Keyword and Suggestion Lists --- */
+.report-details-container { /* NEW class to replace the old grid */
+    display: flex;
+    flex-direction: column; /* Stack the cards vertically */
+    gap: 20px; /* Space between the two cards */
+    margin-top: 30px;
+}
+
+/* MODIFIED: Reduce Heading Gap */
+.report-card {
+    background-color: #243552; 
+    /* Reduce overall vertical padding to make cards look tighter */
+    padding: 18px 25px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.report-card h3 {
+    /* Set h3 margin explicitly to zero or small value */
+    margin-top: 0; 
+    margin-bottom: 10px; /* Keep a small gap below the heading */
+    color: #79D2FF; 
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.report-card ul, .report-card ol {
+    /*list-style: none;*/ /* Remove default dots/numbers for custom styling */
+    padding-left: 0;
+}
+
+.report-card li {
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    font-size: 0.95em;
+    /* Custom icon for missing keywords */
+    position: relative; 
+}
+
+/* Customize the icon appearance for "Missing Keywords" */
+.missing-keywords li {
+    color: #FF7979; /* Soft Red/Orange for warning */
+}
+.missing-keywords li span[role="img"] {
+    position: absolute;
+    left: 0;
+    font-size: 0.8em;
+    top: 5px;
+}
+
+/* --- Button Improvement: Start Mock Interview --- */
+.start-interview-btn-report {
+    /* Assuming this class replaces or extends your existing .btn-secondary */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2DCC9F; /* Teal/Green for GO action */
+    color: #1B263B; /* Dark text */
+    border: none;
+    border-radius: 8px;
+    padding: 15px 35px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+
+.start-interview-btn-report:hover {
+    background-color: #1AAA83; /* Darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Critical Missing Keywords (Addressing Point 2: Emoji Alignment) --- */
+.keywords-list {
+    /*list-style: none;*/
+    padding-left: 0;
+    margin-left: 35px;
+}
+
+.keywords-list li {
+    line-height: 1.5;
+    margin-bottom: 8px;
+    padding-left: 25px; /* Space for the emoji */
+    position: relative; 
+    color: #FF7979; /* Keep the warning color */
+}
+
+.keywords-list li .warning-emoji {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    /*margin-left: 0px;*/
+    font-size: 1.2em; /* Ensure emoji is clearly visible */
+}
+
+/* --- Improvement Suggestions (Addressing Point 3: Numbering) --- */
+.suggestions-list {
+    /* Remove 'list-style: none;' if it was applied globally to the card */
+    list-style: decimal; /* Enable standard numbering */
+    padding-left: 18px; /* Standard indentation for numbered lists */
+}
+
+.suggestions-list li {
+    line-height: 1.5;
+    margin-bottom: 15px; /* More space for the numbered suggestions */
+    font-size: 1em;
+    color: #E0E6F7;
+    margin-left: 25px;
 }
