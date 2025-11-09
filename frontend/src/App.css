@@ -478,10 +478,6 @@
 .large-btn:hover {
     transform: translateY(-1px);
 }
-
-/* Ensure the old upload form now uses the new component name */
-/* (Rename .upload-section to .ats-scan-upload-section if you want cleaner naming,
-   but we'll just keep the old name for simplicity here) */
    
 /* Interview Setup Styles */
 .interview-setup {
@@ -1185,7 +1181,7 @@
 
 /* --- Section Headings --- */
 .ats-report-section h2, .ats-report-section h3 {
-    color: #79D2FF; /* Vibrant Blue for clarity */
+    color: #79D2FF; 
     margin-top: 20px;
 }
 
@@ -1197,7 +1193,7 @@
 /* --- Report Description and Advice Text --- */
 .selection-desc {
     font-size: 1.1em;
-    color: #A9B7C7; /* Slightly muted for context */
+    color: #A9B7C7; 
     margin-bottom: 30px;
 }
 
@@ -1206,37 +1202,34 @@
     font-weight: 500;
     margin-top: 15px;
     padding: 10px 0;
-    /* Use color classes based on your App.js logic for dynamic advice color */
+    
 }
 
 /* --- Keyword and Suggestion Lists --- */
-.report-details-container { /* NEW class to replace the old grid */
+.report-details-container { 
     display: flex;
-    flex-direction: column; /* Stack the cards vertically */
-    gap: 20px; /* Space between the two cards */
+    flex-direction: column; 
+    gap: 20px; 
     margin-top: 30px;
 }
 
-/* MODIFIED: Reduce Heading Gap */
+
 .report-card {
     background-color: #243552; 
-    /* Reduce overall vertical padding to make cards look tighter */
     padding: 18px 25px; 
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .report-card h3 {
-    /* Set h3 margin explicitly to zero or small value */
     margin-top: 0; 
-    margin-bottom: 10px; /* Keep a small gap below the heading */
+    margin-bottom: 10px;
     color: #79D2FF; 
     font-size: 1.5em;
     font-weight: 600;
 }
 
 .report-card ul, .report-card ol {
-    /*list-style: none;*/ /* Remove default dots/numbers for custom styling */
     padding-left: 0;
 }
 
@@ -1245,13 +1238,11 @@
     margin-bottom: 10px;
     padding-left: 15px;
     font-size: 0.95em;
-    /* Custom icon for missing keywords */
     position: relative; 
 }
 
-/* Customize the icon appearance for "Missing Keywords" */
 .missing-keywords li {
-    color: #FF7979; /* Soft Red/Orange for warning */
+    color: #FF7979; 
 }
 .missing-keywords li span[role="img"] {
     position: absolute;
@@ -1262,12 +1253,11 @@
 
 /* --- Button Improvement: Start Mock Interview --- */
 .start-interview-btn-report {
-    /* Assuming this class replaces or extends your existing .btn-secondary */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #2DCC9F; /* Teal/Green for GO action */
-    color: #1B263B; /* Dark text */
+    background-color: #2DCC9F; 
+    color: #1B263B; 
     border: none;
     border-radius: 8px;
     padding: 15px 35px;
@@ -1281,14 +1271,12 @@
 }
 
 .start-interview-btn-report:hover {
-    background-color: #1AAA83; /* Darker green on hover */
+    background-color: #1AAA83; 
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* --- Critical Missing Keywords (Addressing Point 2: Emoji Alignment) --- */
 .keywords-list {
-    /*list-style: none;*/
     padding-left: 0;
     margin-left: 35px;
 }
@@ -1296,30 +1284,290 @@
 .keywords-list li {
     line-height: 1.5;
     margin-bottom: 8px;
-    padding-left: 25px; /* Space for the emoji */
+    padding-left: 25px; 
     position: relative; 
-    color: #FF7979; /* Keep the warning color */
+    color: #FF7979; 
 }
 
 .keywords-list li .warning-emoji {
     position: absolute;
     left: 0;
     top: 2px;
-    /*margin-left: 0px;*/
-    font-size: 1.2em; /* Ensure emoji is clearly visible */
+    font-size: 1.2em; 
 }
 
-/* --- Improvement Suggestions (Addressing Point 3: Numbering) --- */
 .suggestions-list {
-    /* Remove 'list-style: none;' if it was applied globally to the card */
-    list-style: decimal; /* Enable standard numbering */
-    padding-left: 18px; /* Standard indentation for numbered lists */
+    list-style: decimal; 
+    padding-left: 18px;
 }
 
 .suggestions-list li {
     line-height: 1.5;
-    margin-bottom: 15px; /* More space for the numbered suggestions */
+    margin-bottom: 15px;
     font-size: 1em;
     color: #E0E6F7;
     margin-left: 25px;
+}
+
+
+.loading-screen {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 2rem;
+
+}
+
+
+
+.spinner {
+
+  border: 4px solid #f3f3f3;
+
+  border-top: 4px solid #007bff;
+
+  border-radius: 50%;
+
+  width: 40px;
+
+  height: 40px;
+
+  animation: spin 2s linear infinite;
+
+  margin-bottom: 1rem;
+
+}
+
+
+
+@keyframes spin {
+
+  0% { transform: rotate(0deg); }
+
+  100% { transform: rotate(360deg); }
+
+}
+
+
+
+
+.expected-answer-hint {
+
+  margin-top: 1rem;
+
+  padding: 1rem;
+
+  background: #f8f9fa;
+
+  border-radius: 8px;
+
+  border-left: 4px solid #007bff;
+
+}
+
+
+
+.expected-answer-hint summary {
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  color: #007bff;
+
+}
+
+
+
+.expected-answer-hint ul {
+
+  margin: 0.5rem 0 0 1rem;
+
+  padding: 0;
+
+}
+
+
+
+.expected-answer-hint li {
+
+  margin: 0.25rem 0;
+
+  color: #555;
+
+}
+
+
+
+/* Interview stats */
+
+.interview-stats {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.5rem;
+
+}
+
+
+
+.stat-item {
+
+  display: flex;
+
+  justify-content: between;
+
+  align-items: center;
+
+  padding: 0.5rem;
+
+  background: #f8f9fa;
+
+  border-radius: 6px;
+
+}
+
+
+
+.stat-label {
+
+  font-weight: 600;
+
+  color: #555;
+
+  flex: 1;
+
+}
+
+
+
+.stat-value {
+
+  font-weight: 700;
+
+  color: #007bff;
+
+}
+
+
+
+.loading-text {
+
+  color: #007bff;
+
+  font-style: italic;
+
+}
+
+/* HR Interview Specific Styles */
+.hr-interview .question-box.hr-question {
+  border-left: 4px solid #79D2FF;
+  background: linear-gradient(135deg, #1e3a5f 0%, #243552 100%);
+}
+
+.hr-interview .question-purpose {
+  background: rgba(121, 210, 255, 0.1);
+  border: 1px solid rgba(121, 210, 255, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hr-interview .purpose-icon {
+  font-size: 1.2em;
+}
+
+.hr-interview .stat-item .purpose {
+  font-size: 0.8em;
+  opacity: 0.9;
+}
+
+/* Evaluation Section */
+.evaluation-section {
+  background: rgba(45, 204, 159, 0.1);
+  border: 1px solid rgba(45, 204, 159, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.evaluation-scores {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.eval-score {
+  display: flex;
+  gap: 5px;
+}
+
+.evaluation-feedback {
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+
+/* HR Topics Info */
+.hr-topics-info {
+  background: rgba(121, 210, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.hr-topics-info ul {
+  margin: 10px 0 0 20px;
+}
+
+.hr-topics-info li {
+  margin: 5px 0;
+  color: #A9B7C7;
+}
+
+/* Action Options Grid */
+.action-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+  .action-options-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .action-options-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Button Variants */
+.btn-tertiary {
+  background: linear-gradient(135deg, #79D2FF 0%, #4A9EFF 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-tertiary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(121, 210, 255, 0.3);
 }

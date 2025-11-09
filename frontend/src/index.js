@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css'; // Standard CSS import
+import './index.css'; 
 import { ClerkProvider } from '@clerk/clerk-react';
 import App from './App';
 

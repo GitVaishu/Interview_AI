@@ -26,7 +26,6 @@ def extract_text_from_file(file_path: str, file_name: str) -> str:
             
     except Exception as e:
         print(f"Error during text extraction from {file_name}: {e}")
-        # Return a standard error message instead of failing the whole request
         return f"Error: Could not process file - {str(e)}"
         
     return text.strip()
