@@ -241,7 +241,7 @@
 
 /* Page Container */
 .page-container {
-  color: #E0E6F7;
+  color: #e0e6f7;
   max-width: 900px;
   margin: 0 auto;
 }
@@ -383,102 +383,102 @@
 
 /* --- NEW: Resume Selection Hub Styles --- */
 .resume-action-hub {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 30px auto;
 }
 
 .welcome-heading {
-    font-size: 2rem;
-    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 5px;
+  font-size: 2rem;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 5px;
 }
 
 .selection-desc {
-    color: #6b7280;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    text-align: center;
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .action-card {
-    display: flex;
-    align-items: center;
-    padding: 25px;
-    border-radius: 12px;
-    width: 100%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s;
-    cursor: pointer;
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+  cursor: pointer;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
 }
 
 .action-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
 }
 
 .icon-section {
-    margin-right: 25px;
-    font-size: 3rem;
-    min-width: 50px;
-    text-align: center;
+  margin-right: 25px;
+  font-size: 3rem;
+  min-width: 50px;
+  text-align: center;
 }
 
 .card-title {
-    font-size: 1.4rem;
-    color: #0c4a6e;
-    margin-bottom: 5px;
+  font-size: 1.4rem;
+  color: #0c4a6e;
+  margin-bottom: 5px;
 }
 
 .card-description {
-    color: #6b7280;
-    margin-bottom: 15px;
-    font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
 }
 
 .divider-text {
-    font-weight: 700;
-    color: #9ca3af;
-    font-size: 1.1rem;
+  font-weight: 700;
+  color: #9ca3af;
+  font-size: 1.1rem;
 }
 
 /* Specific button style for the cards */
 .large-btn {
-    padding: 10px 25px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 6px;
-    border: none;
-    transition: transform 0.2s;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-    color: white;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
 }
 
 .large-btn:hover {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
-   
+
 /* Interview Setup Styles */
 .interview-setup {
   background: white;
@@ -1041,6 +1041,12 @@
   font-weight: 500;
 }
 
+/* HR Interview specific - White text for questions */
+.hr-interview .question-text {
+  color: #ffffff;
+  font-weight: 500;
+}
+
 .answer-section {
   display: flex;
   flex-direction: column;
@@ -1180,138 +1186,136 @@
 }
 
 /* --- Section Headings --- */
-.ats-report-section h2, .ats-report-section h3 {
-    color: #79D2FF; 
-    margin-top: 20px;
+.ats-report-section h2,
+.ats-report-section h3 {
+  color: #79d2ff;
+  margin-top: 20px;
 }
 
 .ats-report-section h2 {
-    font-size: 2.2em;
-    font-weight: 700;
+  font-size: 2.2em;
+  font-weight: 700;
 }
 
 /* --- Report Description and Advice Text --- */
 .selection-desc {
-    font-size: 1.1em;
-    color: #A9B7C7; 
-    margin-bottom: 30px;
+  font-size: 1.1em;
+  color: #a9b7c7;
+  margin-bottom: 30px;
 }
 
 .score-advice {
-    font-size: 1.1em;
-    font-weight: 500;
-    margin-top: 15px;
-    padding: 10px 0;
-    
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-top: 15px;
+  padding: 10px 0;
 }
 
 /* --- Keyword and Suggestion Lists --- */
-.report-details-container { 
-    display: flex;
-    flex-direction: column; 
-    gap: 20px; 
-    margin-top: 30px;
+.report-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
 }
 
-
 .report-card {
-    background-color: #243552; 
-    padding: 18px 25px; 
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: #243552;
+  padding: 18px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .report-card h3 {
-    margin-top: 0; 
-    margin-bottom: 10px;
-    color: #79D2FF; 
-    font-size: 1.5em;
-    font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #79d2ff;
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
-.report-card ul, .report-card ol {
-    padding-left: 0;
+.report-card ul,
+.report-card ol {
+  padding-left: 0;
 }
 
 .report-card li {
-    line-height: 1.6;
-    margin-bottom: 10px;
-    padding-left: 15px;
-    font-size: 0.95em;
-    position: relative; 
+  line-height: 1.6;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  font-size: 0.95em;
+  position: relative;
 }
 
 .missing-keywords li {
-    color: #FF7979; 
+  color: #ff7979;
 }
 .missing-keywords li span[role="img"] {
-    position: absolute;
-    left: 0;
-    font-size: 0.8em;
-    top: 5px;
+  position: absolute;
+  left: 0;
+  font-size: 0.8em;
+  top: 5px;
 }
 
 /* --- Button Improvement: Start Mock Interview --- */
 .start-interview-btn-report {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2DCC9F; 
-    color: #1B263B; 
-    border: none;
-    border-radius: 8px;
-    padding: 15px 35px;
-    font-size: 1.1em;
-    font-weight: 700;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 20px;
-    transition: background-color 0.3s ease, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2dcc9f;
+  color: #1b263b;
+  border: none;
+  border-radius: 8px;
+  padding: 15px 35px;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.1s;
 }
 
 .start-interview-btn-report:hover {
-    background-color: #1AAA83; 
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  background-color: #1aaa83;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .keywords-list {
-    padding-left: 0;
-    margin-left: 35px;
+  padding-left: 0;
+  margin-left: 35px;
 }
 
 .keywords-list li {
-    line-height: 1.5;
-    margin-bottom: 8px;
-    padding-left: 25px; 
-    position: relative; 
-    color: #FF7979; 
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding-left: 25px;
+  position: relative;
+  color: #ff7979;
 }
 
 .keywords-list li .warning-emoji {
-    position: absolute;
-    left: 0;
-    top: 2px;
-    font-size: 1.2em; 
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 1.2em;
 }
 
 .suggestions-list {
-    list-style: decimal; 
-    padding-left: 18px;
+  list-style: decimal;
+  padding-left: 18px;
 }
 
 .suggestions-list li {
-    line-height: 1.5;
-    margin-bottom: 15px;
-    font-size: 1em;
-    color: #E0E6F7;
-    margin-left: 25px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  font-size: 1em;
+  color: #e0e6f7;
+  margin-left: 25px;
 }
 
-
 .loading-screen {
-
   display: flex;
 
   flex-direction: column;
@@ -1321,13 +1325,9 @@
   justify-content: center;
 
   padding: 2rem;
-
 }
 
-
-
 .spinner {
-
   border: 4px solid #f3f3f3;
 
   border-top: 4px solid #007bff;
@@ -1341,24 +1341,19 @@
   animation: spin 2s linear infinite;
 
   margin-bottom: 1rem;
-
 }
-
-
 
 @keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
 
-  0% { transform: rotate(0deg); }
-
-  100% { transform: rotate(360deg); }
-
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-
-
-
 .expected-answer-hint {
-
   margin-top: 1rem;
 
   padding: 1rem;
@@ -1368,59 +1363,96 @@
   border-radius: 8px;
 
   border-left: 4px solid #007bff;
-
 }
 
-
-
 .expected-answer-hint summary {
-
   cursor: pointer;
 
   font-weight: 600;
 
   color: #007bff;
-
 }
 
-
-
 .expected-answer-hint ul {
-
   margin: 0.5rem 0 0 1rem;
 
   padding: 0;
-
 }
 
-
-
 .expected-answer-hint li {
-
   margin: 0.25rem 0;
 
   color: #555;
-
 }
 
+/* HR Interview Answer Hints */
+.hr-answer-hints {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 10px;
+  border-left: 4px solid #79d2ff;
+}
 
+.hr-answer-hints summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #79d2ff;
+  font-size: 0.95rem;
+  padding: 6px 0;
+  user-select: none;
+  transition: color 0.3s;
+  list-style: none;
+}
+
+.hr-answer-hints summary::-webkit-details-marker {
+  display: none;
+}
+
+.hr-answer-hints summary:hover {
+  color: #2dcc9f;
+}
+
+.hr-answer-hints .hints-content {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(121, 210, 255, 0.2);
+}
+
+.hr-answer-hints ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.hr-answer-hints li {
+  margin: 0.5rem 0;
+  color: #cbd5e1;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.hr-answer-hints li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #2dcc9f;
+  font-weight: bold;
+}
 
 /* Interview stats */
 
 .interview-stats {
-
   display: flex;
 
   flex-direction: column;
 
   gap: 0.5rem;
-
 }
 
-
-
 .stat-item {
-
   display: flex;
 
   justify-content: between;
@@ -1432,44 +1464,31 @@
   background: #f8f9fa;
 
   border-radius: 6px;
-
 }
 
-
-
 .stat-label {
-
   font-weight: 600;
 
   color: #555;
 
   flex: 1;
-
 }
 
-
-
 .stat-value {
-
   font-weight: 700;
 
   color: #007bff;
-
 }
 
-
-
 .loading-text {
-
   color: #007bff;
 
   font-style: italic;
-
 }
 
 /* HR Interview Specific Styles */
 .hr-interview .question-box.hr-question {
-  border-left: 4px solid #79D2FF;
+  border-left: 4px solid #79d2ff;
   background: linear-gradient(135deg, #1e3a5f 0%, #243552 100%);
 }
 
@@ -1532,7 +1551,7 @@
 
 .hr-topics-info li {
   margin: 5px 0;
-  color: #A9B7C7;
+  color: #a9b7c7;
 }
 
 /* Action Options Grid */
@@ -1557,7 +1576,7 @@
 
 /* Button Variants */
 .btn-tertiary {
-  background: linear-gradient(135deg, #79D2FF 0%, #4A9EFF 100%);
+  background: linear-gradient(135deg, #79d2ff 0%, #4a9eff 100%);
   color: white;
   border: none;
   padding: 12px 24px;

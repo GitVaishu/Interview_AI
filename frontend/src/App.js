@@ -86,12 +86,12 @@ const Dashboard = ({ user, onNavigate, notify }) => {
       available: true,
     },
     {
-    id: "hr-interview", // NEW
-    title: "HR Interview", 
-    desc: "Practice behavioral and HR questions",
-    icon: "👥",
-    available: true,
-  },
+      id: "hr-interview", // NEW
+      title: "HR Interview",
+      desc: "Practice behavioral and HR questions",
+      icon: "👥",
+      available: true,
+    },
     {
       id: "progress",
       title: "My Progress",
@@ -222,29 +222,31 @@ const ResumeActionHub = ({ onNavigate, notify }) => {
             </button>
           </div>
         </div>
-         <div className="action-card" onClick={() => onNavigate("hr-interview")}>
-    <div className="icon-section">
-      <span role="img" aria-label="hr">👥</span>
-    </div>
-    <div className="text-section">
-      <h3 className="card-title">Practice HR Interview</h3>
-      <p className="card-description">
-        Practice behavioral questions, "Tell me about yourself", 
-        career goals, and questions about your achievements.
-      </p>
-      <button
-        className="btn btn-tertiary large-btn"
-        onClick={(e) => {
-          e.stopPropagation();
-          onNavigate("hr-interview");
-        }}
-      >
-        Start HR Practice
-      </button>
-    </div>
-  </div>
-</div>
+        <div className="action-card" onClick={() => onNavigate("hr-interview")}>
+          <div className="icon-section">
+            <span role="img" aria-label="hr">
+              👥
+            </span>
+          </div>
+          <div className="text-section">
+            <h3 className="card-title">Practice HR Interview</h3>
+            <p className="card-description">
+              Practice behavioral questions, "Tell me about yourself", career
+              goals, and questions about your achievements.
+            </p>
+            <button
+              className="btn btn-tertiary large-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                onNavigate("hr-interview");
+              }}
+            >
+              Start HR Practice
+            </button>
+          </div>
+        </div>
       </div>
+    </div>
   );
 };
 
@@ -764,7 +766,7 @@ const InterviewSession = ({ user, onNavigate, config, notify }) => {
     [questionsHistory, currentQuestionNumber, config, notify]
   );
 
-  // Initialize interview session 
+  // Initialize interview session
   const initializeInterviewSession = useCallback(async () => {
     try {
       setLoading(true);
@@ -848,7 +850,7 @@ const InterviewSession = ({ user, onNavigate, config, notify }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          session_id: sessionId, 
+          session_id: sessionId,
           question: currentQuestion.question,
           answer: answer,
           confidence_score: null,
@@ -888,7 +890,7 @@ const InterviewSession = ({ user, onNavigate, config, notify }) => {
   useEffect(() => {
     if (user?.id && !initializedRef.current) {
       console.log("DEBUG: Initializing interview session...");
-      initializedRef.current = true; 
+      initializedRef.current = true;
       initializeInterviewSession();
     }
   }, [user?.id]);
@@ -1224,13 +1226,13 @@ const HRInterviewSetup = ({ user, onNavigate }) => {
       const resumeResponse = await fetch(
         `http://localhost:8000/ats-report/${user.id}`
       );
-      
+
       if (!resumeResponse.ok) {
         throw new Error("No resume found. Please upload a resume first.");
       }
 
       const resumeData = await resumeResponse.json();
-      
+
       // Create HR interview session
       const sessionResponse = await fetch(
         "http://localhost:8000/create-hr-interview/",
@@ -1253,15 +1255,14 @@ const HRInterviewSetup = ({ user, onNavigate }) => {
       }
 
       const sessionData = await sessionResponse.json();
-      
+
       onNavigate("hr-interview-session", {
         sessionId: sessionData.session_id,
-        resumeId: sessionData.resume_id, 
+        resumeId: sessionData.resume_id,
         level,
         duration,
-        sessionType: "hr"
+        sessionType: "hr",
       });
-      
     } catch (error) {
       alert(`Failed to start HR interview: ${error.message}`);
     }
@@ -1276,9 +1277,9 @@ const HRInterviewSetup = ({ user, onNavigate }) => {
       <div className="interview-setup">
         <h2>👥 Configure HR Interview</h2>
         <p className="selection-desc">
-          Practice common HR questions like "Tell me about yourself", 
-          "Where do you see yourself in 5 years?", and behavioral questions
-          based on your resume achievements and extracurricular activities.
+          Practice common HR questions like "Tell me about yourself", "Where do
+          you see yourself in 5 years?", and behavioral questions based on your
+          resume achievements and extracurricular activities.
         </p>
 
         <div className="setup-section">
@@ -1389,7 +1390,7 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
     } catch (error) {
       console.error("Failed to generate HR question:", error);
       notify(`Failed to generate question: ${error.message}`, "error");
-      
+
       // Fallback HR questions
       const fallbackQuestions = [
         "Can you walk me through your resume and highlight key experiences that make you a good fit for this role?",
@@ -1399,17 +1400,18 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
         "What achievement are you most proud of and why?",
         "How do your extracurricular activities contribute to your professional development?",
         "Describe a situation where you had to take leadership responsibility. What did you learn?",
-        "What motivates you to perform at your best?"
+        "What motivates you to perform at your best?",
       ];
-      
-      const fallbackQuestion = fallbackQuestions[currentQuestionNumber - 1] || 
+
+      const fallbackQuestion =
+        fallbackQuestions[currentQuestionNumber - 1] ||
         "Tell me about yourself and your career journey.";
-      
+
       setCurrentQuestion({
         question: fallbackQuestion,
         category: "HR",
         difficulty: config?.level || "medium",
-        purpose: "Assess your communication and self-awareness"
+        purpose: "Assess your communication and self-awareness",
       });
     } finally {
       setLoading(false);
@@ -1452,7 +1454,7 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
 
       const result = await response.json();
       console.log("HR Answer submitted successfully:", result);
-      
+
       // Show evaluation if available
       if (result.evaluation) {
         setEvaluation(result.evaluation);
@@ -1469,13 +1471,13 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
         setTimeout(() => generateNextHRQuestion(), 1000);
       } else {
         notify("HR Interview completed! Generating report...", "info");
-        
+
         // Generate final report
         const reportResponse = await fetch(
           `http://localhost:8000/complete-hr-interview/${sessionId}`,
           { method: "POST" }
         );
-        
+
         if (reportResponse.ok) {
           onNavigate("hr-report", { sessionId });
         } else {
@@ -1514,7 +1516,12 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
     if (sessionId && currentQuestionNumber === 1 && !currentQuestion) {
       generateNextHRQuestion();
     }
-  }, [sessionId, currentQuestionNumber, currentQuestion, generateNextHRQuestion]);
+  }, [
+    sessionId,
+    currentQuestionNumber,
+    currentQuestion,
+    generateNextHRQuestion,
+  ]);
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -1618,6 +1625,52 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
                 <span>{currentQuestion.purpose}</span>
               </div>
             )}
+
+            {/* Question-Specific Hints */}
+            {currentQuestion?.hints && currentQuestion.hints.length > 0 && (
+              <div className="hr-answer-hints">
+                <details>
+                  <summary>
+                    💡 Tips for answering this question (click to expand)
+                  </summary>
+                  <div className="hints-content">
+                    <ul
+                      style={{
+                        margin: "10px 0",
+                        padding: "0",
+                        listStyle: "none",
+                      }}
+                    >
+                      {currentQuestion.hints.map((hint, index) => (
+                        <li
+                          key={index}
+                          style={{
+                            padding: "8px 0",
+                            color: "#e2e8f0",
+                            fontSize: "0.95rem",
+                            lineHeight: "1.5",
+                            position: "relative",
+                            paddingLeft: "1.5rem",
+                          }}
+                        >
+                          <span
+                            style={{
+                              position: "absolute",
+                              left: "0",
+                              color: "#2DCC9F",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            ▸
+                          </span>
+                          {hint}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            )}
           </div>
 
           {/* Evaluation display */}
@@ -1635,7 +1688,9 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
                 </div>
               </div>
               <div className="evaluation-feedback">
-                <p><strong>Feedback:</strong> {evaluation.overall_feedback}</p>
+                <p>
+                  <strong>Feedback:</strong> {evaluation.overall_feedback}
+                </p>
               </div>
             </div>
           )}
@@ -1677,22 +1732,37 @@ const HRInterviewSession = ({ user, onNavigate, config, notify }) => {
 const HRReportPage = ({ user, sessionId, onNavigate }) => {
   const [reportData, setReportData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchHRReport = async () => {
-      if (!sessionId) return;
+      if (!sessionId) {
+        setError("No session ID provided");
+        setLoading(false);
+        return;
+      }
 
       try {
-        const response = await fetch(
-          `http://localhost:8000/hr-interview-session/${sessionId}`
+        // First, complete the interview to generate the report
+        const completeResponse = await fetch(
+          `http://localhost:8000/complete-hr-interview/${sessionId}`,
+          { method: "POST" }
         );
 
-        if (response.ok) {
-          const data = await response.json();
-          setReportData(data);
+        if (!completeResponse.ok) {
+          throw new Error("Failed to complete HR interview");
+        }
+
+        const completeData = await completeResponse.json();
+
+        if (completeData.status === "success" && completeData.report) {
+          setReportData(completeData.report);
+        } else {
+          throw new Error("No report data received");
         }
       } catch (error) {
         console.error("Failed to fetch HR report:", error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -1706,11 +1776,43 @@ const HRReportPage = ({ user, sessionId, onNavigate }) => {
       <div className="report-container">
         <div className="report-loading">
           <div className="loading-spinner"></div>
-          <h2>Generating Your HR Interview Report...</h2>
+          <h2>🔄 Generating Your HR Interview Report...</h2>
+          <p>Analyzing your responses with AI...</p>
         </div>
       </div>
     );
   }
+
+  if (error || !reportData) {
+    return (
+      <div className="report-container">
+        <div className="report-header">
+          <button className="back-btn" onClick={() => onNavigate("home")}>
+            ← Back to Dashboard
+          </button>
+          <h1>👥 HR Interview Report</h1>
+        </div>
+        <div className="error-section">
+          <h2>⚠️ Unable to Generate Report</h2>
+          <p>{error || "No report data available. Please try again."}</p>
+          <button className="btn-primary" onClick={() => onNavigate("home")}>
+            Return to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Get score color based on overall score
+  const getScoreColor = (score) => {
+    if (score >= 80) return "#2DCC9F";
+    if (score >= 60) return "#79D2FF";
+    if (score >= 40) return "#FFA500";
+    return "#FF7979";
+  };
+
+  const overallScore = reportData.overall_score || 0;
+  const scoreColor = getScoreColor(overallScore);
 
   return (
     <div className="report-container">
@@ -1722,29 +1824,502 @@ const HRReportPage = ({ user, sessionId, onNavigate }) => {
       </div>
 
       <div className="report-content">
-        <div className="score-section">
-          <h2>HR Interview Completed!</h2>
-          <p>You've successfully completed the HR mock interview.</p>
-          
-          {reportData && (
-            <div className="session-details">
-              <h3>Session Details</h3>
-              <p><strong>Questions Asked:</strong> {reportData.messages?.filter(m => m.role === 'ai').length || 0}</p>
-              <p><strong>Your Answers:</strong> {reportData.messages?.filter(m => m.role === 'user').length || 0}</p>
-            </div>
-          )}
+        {/* Overall Score Section */}
+        <div
+          className="score-section"
+          style={{ textAlign: "center", marginBottom: "30px" }}
+        >
+          <h2>🎯 Overall Performance Score</h2>
+          <div
+            style={{
+              fontSize: "5em",
+              fontWeight: "bold",
+              color: scoreColor,
+              margin: "20px 0",
+            }}
+          >
+            {overallScore}%
+          </div>
+          <p style={{ fontSize: "1.1em", color: "#A9B7C7" }}>
+            Questions Answered: {reportData.answers_given} /{" "}
+            {reportData.questions_asked}
+          </p>
         </div>
 
-        <div className="action-buttons">
-          <button 
-            className="btn-primary" 
+        {/* Personalized Feedback */}
+        {reportData.personalized_feedback && (
+          <div className="report-card" style={{ marginBottom: "30px" }}>
+            <h3>💬 Personalized Feedback</h3>
+            <p
+              style={{ fontSize: "1.1em", lineHeight: "1.8", color: "#E5E7EB" }}
+            >
+              {reportData.personalized_feedback}
+            </p>
+          </div>
+        )}
+
+        {/* Category Scores */}
+        {reportData.category_scores &&
+          reportData.category_scores.length > 0 && (
+            <div className="report-card" style={{ marginBottom: "30px" }}>
+              <h3>📊 Category-wise Performance</h3>
+              <div style={{ marginTop: "20px" }}>
+                {reportData.category_scores.map((cat, index) => (
+                  <div key={index} style={{ marginBottom: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: "8px",
+                        color: "#E5E7EB",
+                      }}
+                    >
+                      <span style={{ fontWeight: "600" }}>{cat.category}</span>
+                      <span
+                        style={{
+                          color: getScoreColor(cat.score),
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {cat.score}%
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "12px",
+                        backgroundColor: "#243552",
+                        borderRadius: "6px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${cat.score}%`,
+                          height: "100%",
+                          backgroundColor: getScoreColor(cat.score),
+                          transition: "width 0.5s ease",
+                          borderRadius: "6px",
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+        {/* Strengths */}
+        {reportData.strengths && reportData.strengths.length > 0 && (
+          <div className="report-card" style={{ marginBottom: "30px" }}>
+            <h3>💪 Your Strengths</h3>
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                marginTop: "15px",
+              }}
+            >
+              {reportData.strengths.map((strength, index) => (
+                <li
+                  key={index}
+                  style={{
+                    padding: "12px",
+                    marginBottom: "10px",
+                    backgroundColor: "rgba(45, 204, 159, 0.1)",
+                    borderLeft: "4px solid #2DCC9F",
+                    borderRadius: "4px",
+                    color: "#E5E7EB",
+                    lineHeight: "1.6",
+                  }}
+                >
+                  <span style={{ color: "#2DCC9F", marginRight: "8px" }}>
+                    ✓
+                  </span>
+                  {strength}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Weaknesses / Areas for Improvement */}
+        {reportData.weaknesses && reportData.weaknesses.length > 0 && (
+          <div className="report-card" style={{ marginBottom: "30px" }}>
+            <h3>🎯 Areas for Improvement</h3>
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                marginTop: "15px",
+              }}
+            >
+              {reportData.weaknesses.map((weakness, index) => (
+                <li
+                  key={index}
+                  style={{
+                    padding: "12px",
+                    marginBottom: "10px",
+                    backgroundColor: "rgba(255, 165, 0, 0.1)",
+                    borderLeft: "4px solid #FFA500",
+                    borderRadius: "4px",
+                    color: "#E5E7EB",
+                    lineHeight: "1.6",
+                  }}
+                >
+                  <span style={{ color: "#FFA500", marginRight: "8px" }}>
+                    !
+                  </span>
+                  {weakness}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Recommendations */}
+        {reportData.recommendations &&
+          reportData.recommendations.length > 0 && (
+            <div className="report-card" style={{ marginBottom: "30px" }}>
+              <h3>💡 Recommendations</h3>
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  marginTop: "15px",
+                }}
+              >
+                {reportData.recommendations.map((rec, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      padding: "12px",
+                      marginBottom: "10px",
+                      backgroundColor: "rgba(121, 210, 255, 0.1)",
+                      borderLeft: "4px solid #79D2FF",
+                      borderRadius: "4px",
+                      color: "#E5E7EB",
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    <span style={{ color: "#79D2FF", marginRight: "8px" }}>
+                      →
+                    </span>
+                    {rec}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+        {/* Question-by-Question Detailed Feedback */}
+        {reportData.question_by_question_feedback &&
+          reportData.question_by_question_feedback.length > 0 && (
+            <div
+              className="report-card"
+              style={{ marginBottom: "30px", marginTop: "40px" }}
+            >
+              <h2
+                style={{
+                  color: "#79D2FF",
+                  marginBottom: "25px",
+                  fontSize: "1.5em",
+                  borderBottom: "2px solid #79D2FF",
+                  paddingBottom: "10px",
+                }}
+              >
+                📝 Question-by-Question Detailed Feedback
+              </h2>
+
+              {reportData.question_by_question_feedback.map(
+                (feedback, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      marginBottom: "30px",
+                      padding: "20px",
+                      backgroundColor: "#1e293b",
+                      borderRadius: "12px",
+                      border: "1px solid #334155",
+                    }}
+                  >
+                    {/* Question Header */}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: "15px",
+                        paddingBottom: "12px",
+                        borderBottom: "1px solid #334155",
+                      }}
+                    >
+                      <h4
+                        style={{
+                          color: "#79D2FF",
+                          margin: 0,
+                          fontSize: "1.1em",
+                        }}
+                      >
+                        Question {feedback.question_number}
+                      </h4>
+                      <div
+                        style={{
+                          padding: "6px 15px",
+                          backgroundColor: getScoreColor(feedback.score),
+                          borderRadius: "20px",
+                          fontWeight: "bold",
+                          fontSize: "0.95em",
+                        }}
+                      >
+                        {feedback.score}%
+                      </div>
+                    </div>
+
+                    {/* The Question */}
+                    <div style={{ marginBottom: "15px" }}>
+                      <p
+                        style={{
+                          color: "#94a3b8",
+                          fontSize: "0.9em",
+                          fontStyle: "italic",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        Question:
+                      </p>
+                      <p
+                        style={{
+                          color: "#e2e8f0",
+                          fontSize: "1.05em",
+                          lineHeight: "1.6",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {feedback.question}
+                      </p>
+                    </div>
+
+                    {/* Expected Answer Section */}
+                    {feedback.expected_answer && (
+                      <div
+                        style={{
+                          marginBottom: "15px",
+                          padding: "12px",
+                          backgroundColor: "rgba(121, 210, 255, 0.08)",
+                          borderRadius: "8px",
+                          border: "1px solid rgba(121, 210, 255, 0.3)",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "#79D2FF",
+                            fontSize: "0.85em",
+                            marginBottom: "6px",
+                            fontWeight: "600",
+                          }}
+                        >
+                          💡 Expected Answer:
+                        </p>
+                        <p
+                          style={{
+                            color: "#cbd5e1",
+                            fontSize: "0.95em",
+                            lineHeight: "1.6",
+                            margin: 0,
+                            fontStyle: "italic",
+                          }}
+                        >
+                          {feedback.expected_answer}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Your Answer */}
+                    {(feedback.user_answer || feedback.answer_summary) && (
+                      <div
+                        style={{
+                          marginBottom: "15px",
+                          padding: "12px",
+                          backgroundColor: "#0f172a",
+                          borderRadius: "8px",
+                          border: "1px solid #334155",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "#94a3b8",
+                            fontSize: "0.85em",
+                            marginBottom: "6px",
+                            fontWeight: "600",
+                          }}
+                        >
+                          📝 Your Answer:
+                        </p>
+                        <p
+                          style={{
+                            color: "#cbd5e1",
+                            fontSize: "0.95em",
+                            lineHeight: "1.6",
+                            margin: 0,
+                          }}
+                        >
+                          {feedback.user_answer || feedback.answer_summary}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* What Went Well */}
+                    <div
+                      style={{
+                        marginBottom: "12px",
+                        padding: "12px",
+                        backgroundColor: "rgba(45, 204, 159, 0.05)",
+                        borderLeft: "3px solid #2DCC9F",
+                        borderRadius: "6px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          color: "#2DCC9F",
+                          fontSize: "0.9em",
+                          fontWeight: "600",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        ✓ What Went Well:
+                      </p>
+                      <p
+                        style={{
+                          color: "#e2e8f0",
+                          fontSize: "0.95em",
+                          lineHeight: "1.6",
+                          margin: 0,
+                        }}
+                      >
+                        {feedback.what_went_well}
+                      </p>
+                    </div>
+
+                    {/* Areas to Improve OR Good Answer Message */}
+                    {feedback.areas_to_improve && (
+                      <div
+                        style={{
+                          marginBottom: "12px",
+                          padding: "12px",
+                          backgroundColor:
+                            feedback.score >= 85
+                              ? "rgba(45, 204, 159, 0.05)"
+                              : "rgba(255, 165, 0, 0.05)",
+                          borderLeft:
+                            feedback.score >= 85
+                              ? "3px solid #2DCC9F"
+                              : "3px solid #FFA500",
+                          borderRadius: "6px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: feedback.score >= 85 ? "#2DCC9F" : "#FFA500",
+                            fontSize: "0.9em",
+                            fontWeight: "600",
+                            marginBottom: "6px",
+                          }}
+                        >
+                          {feedback.score >= 85
+                            ? "🎉 Feedback:"
+                            : "⚡ Areas to Improve:"}
+                        </p>
+                        <p
+                          style={{
+                            color: "#e2e8f0",
+                            fontSize: "0.95em",
+                            lineHeight: "1.6",
+                            margin: 0,
+                          }}
+                        >
+                          {feedback.areas_to_improve}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Better Answer Approach - Only show if score < 85 */}
+                    {feedback.better_answer_approach && feedback.score < 85 && (
+                      <div
+                        style={{
+                          padding: "12px",
+                          backgroundColor: "rgba(121, 210, 255, 0.05)",
+                          borderLeft: "3px solid #79D2FF",
+                          borderRadius: "6px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "#79D2FF",
+                            fontSize: "0.9em",
+                            fontWeight: "600",
+                            marginBottom: "6px",
+                          }}
+                        >
+                          💡 Better Answer Approach:
+                        </p>
+                        <p
+                          style={{
+                            color: "#e2e8f0",
+                            fontSize: "0.95em",
+                            lineHeight: "1.6",
+                            margin: 0,
+                          }}
+                        >
+                          {feedback.better_answer_approach}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )
+              )}
+            </div>
+          )}
+
+        {/* Action Buttons */}
+        <div
+          className="action-buttons"
+          style={{
+            display: "flex",
+            gap: "15px",
+            justifyContent: "center",
+            marginTop: "40px",
+          }}
+        >
+          <button
+            className="btn-primary"
             onClick={() => onNavigate("hr-interview")}
+            style={{
+              padding: "15px 30px",
+              fontSize: "1.1em",
+              borderRadius: "8px",
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: "#2DCC9F",
+              color: "white",
+              fontWeight: "600",
+            }}
           >
             🎯 Practice Another HR Interview
           </button>
-          <button 
-            className="btn-secondary" 
+          <button
+            className="btn-secondary"
             onClick={() => onNavigate("interview")}
+            style={{
+              padding: "15px 30px",
+              fontSize: "1.1em",
+              borderRadius: "8px",
+              border: "2px solid #79D2FF",
+              cursor: "pointer",
+              backgroundColor: "transparent",
+              color: "#79D2FF",
+              fontWeight: "600",
+            }}
           >
             💻 Try Technical Interview
           </button>
@@ -1814,7 +2389,9 @@ function App() {
       case "hr-interview-session": // NEW
         return <HRInterviewSession {...props} config={interviewConfig} />;
       case "hr-report": // NEW
-        return <HRReportPage {...props} sessionId={interviewConfig?.sessionId} />;
+        return (
+          <HRReportPage {...props} sessionId={interviewConfig?.sessionId} />
+        );
       case "report":
         return (
           <ReportPage
@@ -1870,10 +2447,10 @@ function App() {
               📋 Report
             </button>
             <button
-              onClick={() => setCurrentPage("progress")}
-              className={currentPage === "progress" ? "active" : ""}
+              onClick={() => setCurrentPage("hr-interview")}
+              className={currentPage === "hr-interview" ? "active" : ""}
             >
-            👥 HR
+              👥 HR
             </button>
             <button
               onClick={() => setCurrentPage("progress")}

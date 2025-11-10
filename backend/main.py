@@ -19,11 +19,11 @@ from supabase import Client
 import google.generativeai as genai
 
 # Import utility files
-from .db_client import get_supabase_client
-from .auths_utils import ensure_user_exists as ensure_user_supabase
-from .resume_parser import extract_text_from_file
-from .gemini_client import get_ats_report 
-from .hr_interview_service import HRInterviewService
+from db_client import get_supabase_client
+from auths_utils import ensure_user_exists as ensure_user_supabase
+from resume_parser import extract_text_from_file
+from gemini_client import get_ats_report 
+from hr_interview_service import HRInterviewService
 
 
 app = FastAPI()
@@ -1139,3 +1139,85 @@ async def complete_hr_interview(session_id: str, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to complete HR interview: {str(e)}")
 
+
+# ===== API STATUS CHECK ENDPOINT (FOR DEMO PREP) =====
+@app.get("/api-status-check")
+async def api_status_check():
+    """Check if Gemini API is working properly - USE THIS BEFORE YOUR DEMO!"""
+    try:
+        import google.generativeai as genai
+        
+        api_key = os.getenv("GEMINI_API_KEY", "")
+        
+        if not api_key:
+            return {
+                "status": "❌ FAILED",
+                "api_key_found": False,
+                "error": "GEMINI_API_KEY not found in environment",
+                "action_required": "Add GEMINI_API_KEY to your .env file",
+                "demo_ready": False
+            }
+        
+        # Test API call
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        
+        test_response = model.generate_content("Say 'API Working' if you can read this.")
+        
+        if test_response and test_response.text:
+            return {
+                "status": "✅ SUCCESS",
+                "api_key_found": True,
+                "api_working": True,
+                "model": "gemini-2.0-flash-exp",
+                "test_response": test_response.text[:100],
+                "message": "🎉 Your API is working! Demo ready!",
+                "demo_ready": True
+            }
+        else:
+            return {
+                "status": "⚠️ WARNING",
+                "api_key_found": True,
+                "api_working": False,
+                "error": "API responded but returned empty response",
+                "demo_ready": False
+            }
+            
+    except Exception as e:
+        error_msg = str(e)
+        
+        # Check for quota exceeded
+        if "429" in error_msg or "quota" in error_msg.lower() or "RESOURCE_EXHAUSTED" in error_msg:
+            return {
+                "status": "❌ QUOTA EXCEEDED",
+                "api_key_found": True,
+                "api_working": False,
+                "error": "API quota exceeded - you're hitting rate limits",
+                "error_details": error_msg,
+                "action_required": "Get a new API key from https://aistudio.google.com/app/apikey OR wait for quota reset",
+                "demo_ready": False
+            }
+        
+        # Check for invalid API key
+        elif "API_KEY_INVALID" in error_msg or "invalid" in error_msg.lower():
+            return {
+                "status": "❌ INVALID API KEY",
+                "api_key_found": True,
+                "api_working": False,
+                "error": "API key is invalid or expired",
+                "error_details": error_msg,
+                "action_required": "Get a new API key from https://aistudio.google.com/app/apikey",
+                "demo_ready": False
+            }
+        
+        # Other errors
+        else:
+            return {
+                "status": "❌ ERROR",
+                "api_key_found": bool(api_key),
+                "api_working": False,
+                "error": f"API test failed: {type(e).__name__}",
+                "error_details": error_msg,
+                "action_required": "Check your API key and internet connection",
+                "demo_ready": False
+            }
